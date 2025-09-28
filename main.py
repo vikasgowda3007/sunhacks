@@ -11,18 +11,58 @@ from state import AgentState
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
+# global variable of user_request
+# user_request = {
+#     #"action": "book_court",
+#     "user_details": {"name": "Jane Doe", "email": "jane.doe@example.com"},
+#     "sport": {"football" : "Beginner" },
+#     "date": "2025-10-15",
+#     "time": "10:00",
+#     "is_Individual": True # Individual looking for a match
+# }
+user_request = {
+    "action": "book_court",
+    "user_details": {
+        "name": None,
+        "email": None
+    },
+    "sport": {},  # e.g., {"football": "Beginner"}
+    "date": None,
+    "time": None,
+    "is_Individual": None
+}
+
 @app.route('/api/book', methods=['POST'])
 def book_court():
+    global user_request
     """Read data from UI and print it"""
     try:
         # Get JSON data from request body
-        user_request = request.get_json()
-        print(user_request)
+        reponseData = request.get_json()
+        if reponseData["name"] is not None:
+            user_request["user_details"]["name"] = reponseData["name"]
+        if reponseData["email"] is not None:
+            user_request["user_details"]["email"] = reponseData["email"]
+        if reponseData["sport"] is not None:
+            user_request["sport"] = {
+                reponseData["sport"]: reponseData["proficiency"]
+            }
+        if reponseData["date"] is not None:
+            user_request["date"] = reponseData["date"]
+        if reponseData["time"] is not None:
+            user_request["time"] = reponseData["time"]
+        if reponseData["type"] is not None:
+            if reponseData["type"] == 'individual':
+                user_request["is_Individual"] = True
+            else:
+                user_request["is_Individual"] = False
     except Exception as e:
         print(f"Error processing request: {str(e)}")
         return f"Error: {str(e)}", 500
+    print(user_request)
 
 def main():
+    global user_request
     """
     Main function to run the sports court booking application.
     This function sets up the database, agents, and the LangGraph workflow,
@@ -69,14 +109,14 @@ def main():
     app = workflow.compile()
 
     # Example user request
-    user_request = {
-        #"action": "book_court",
-        "user_details": {"name": "Jane Doe", "email": "jane.doe@example.com"},
-        "sport": {"football" : "Beginner" },
-        "date": "2025-10-15",
-        "time": "10:00",
-        "is_Individual": True # Individual looking for a match
-    }
+    # user_request = {
+    #     #"action": "book_court",
+    #     "user_details": {"name": "Jane Doe", "email": "jane.doe@example.com"},
+    #     "sport": {"football" : "Beginner" },
+    #     "date": "2025-10-15",
+    #     "time": "10:00",
+    #     "is_Individual": True # Individual looking for a match
+    # }
     
     initial_state = {
         "user_request": user_request,
@@ -86,6 +126,8 @@ def main():
         "final_response": None,
         "error": None,
     }
+
+    print(initial_state)
 
     final_state = app.invoke(initial_state)
 
