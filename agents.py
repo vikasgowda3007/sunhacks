@@ -41,8 +41,10 @@ class BookingAgent:
         sport_dict = request['sport']
         sport_name = list(sport_dict.keys())[0]
         proficiency = sport_dict[sport_name]
+        email = request['user details']['email']
+        name = request['user details']['name']
 
-        self.db.save_user_proficiency(user_id, proficiency)
+        self.db.save_user_proficiency(user_id, name, email, proficiency)
         
         if request['is_Individual']:
             # Individual player looking for a match

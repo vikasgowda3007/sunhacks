@@ -72,14 +72,14 @@ class Database:
         print("Data seeding complete.")
 
 
-    def save_user_proficiency(self, user_id, proficiency):
+    def save_user_proficiency(self, user_id, name, email, proficiency):
         """Saves or updates a user's proficiency."""
         query = """
         INSERT INTO users (id, name, email, proficiency) 
-        VALUES (%s, 'Default Name', 'default@email.com', %s) 
+        VALUES (%s, %s, %s, %s) 
         ON DUPLICATE KEY UPDATE proficiency = %s
         """
-        self.cursor.execute(query, (user_id, proficiency, proficiency))
+        self.cursor.execute(query, (user_id, name, email, proficiency, proficiency))
         self.connection.commit()
 
     def check_availability(self, sport, date, time):
