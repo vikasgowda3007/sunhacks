@@ -1,11 +1,26 @@
 import os
+from flask import Flask, request
+from flask_cors import CORS
+import json
 from langgraph.graph import StateGraph, END
 from agents import UserInteractionAgent, BookingAgent
 from db_manager import Database
 from config import get_config
 from state import AgentState
 
+app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
+@app.route('/api/book', methods=['POST'])
+def book_court():
+    """Read data from UI and print it"""
+    try:
+        # Get JSON data from request body
+        user_request = request.get_json()
+        print(user_request)
+    except Exception as e:
+        print(f"Error processing request: {str(e)}")
+        return f"Error: {str(e)}", 500
 
 def main():
     """
@@ -81,4 +96,5 @@ def main():
     db.disconnect()
 
 if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0', port=3000)
     main()
