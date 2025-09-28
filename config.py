@@ -10,9 +10,9 @@ def get_config():
     It's recommended to use environment variables for sensitive data.
     """
     return {
-        "db_user": os.getenv("DB_USER", 'DB_USER'),
-        "db_password": os.getenv("DB_PASSWORD", "DB_PASSWORD"),
-        "db_host": os.getenv("DB_HOST", "DB_HOST"),
-        "db_name": os.getenv("DB_NAME", "DB_NAME"),
-        "gemini_api_key": os.getenv("GEMINI_API_KEY", "GEMINI_API_KEY")
+        "db_user": os.getenv("DB_USER"),
+        "db_password": os.getenv("DB_PASSWORD"),
+        "db_host": os.getenv("DB_HOST"),
+        "db_name": os.getenv("DB_NAME"),
+        "gemini_api_key": os.getenv("GEMINI_API_KEY")
     }

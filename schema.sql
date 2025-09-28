@@ -1,0 +1,32 @@
+CREATE TABLE users (
+    id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
+    proficiency_level INT
+);
+
+CREATE TABLE courts (
+    id INT PRIMARY KEY,
+    sport_type VARCHAR(50),
+    location VARCHAR(255)
+);
+
+CREATE TABLE bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    court_id INT,
+    user_id VARCHAR(255),
+    start_time DATETIME,
+    status VARCHAR(50) DEFAULT 'confirmed',
+    sport_type VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (court_id) REFERENCES courts(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE player_groups (
+    id INT PRIMARY KEY,
+    booking_id INT,
+    user_id VARCHAR(255),
+    FOREIGN KEY (booking_id) REFERENCES bookings(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);

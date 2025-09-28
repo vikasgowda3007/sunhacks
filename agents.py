@@ -7,6 +7,7 @@ class UserInteractionAgent:
         """Processes the initial user request and gathers necessary information."""
         print("--- User Interaction Agent: Processing Request ---")
         user_request = state["user_request"]
+        state["user_request"] = user_request 
         # In a real app, you would have more sophisticated user session management
         # For this example, we'll extract user details directly.
         state["user_id"] = self._get_or_create_user(state)

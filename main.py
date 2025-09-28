@@ -81,7 +81,7 @@ def main():
     }
     
     initial_state = AgentState()
-    initial_state["user_request"] = user_request
+    initial_state = {"user_request": user_request}
 
     final_state = app.invoke(initial_state)
 
