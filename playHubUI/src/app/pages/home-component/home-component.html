@@ -21,50 +21,58 @@
   <div class="home-content">
     <h1>Welcome to PlayHub</h1>
     <p>Your gateway to exciting sports matches!</p>
+    <div #loader id="loader" class="loader">
+      <mat-spinner diameter="100"></mat-spinner>
+      <p>Loading...</p>
+    </div>
+    <form #matchForm="ngForm" (ngSubmit)="findMatch(matchForm)" class="home-content">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Enter your name" name="name" [(ngModel)]="formData.name" required>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="Enter your name">
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Sport</mat-label>
+        <mat-select name="sport" [(ngModel)]="formData.sport" required>
+          <mat-option value="badminton">Badminton</mat-option>
+          <mat-option value="football">Football</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Sport</mat-label>
-      <mat-select>
-        <mat-option value="badminton">Badminton</mat-option>
-        <mat-option value="football">Football</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Proficiency</mat-label>
+        <mat-select name="proficiency" [(ngModel)]="formData.proficiency" required>
+          <mat-option value="beginner">Beginner</mat-option>
+          <mat-option value="intermediate">Intermediate</mat-option>
+          <mat-option value="advanced">Advanced</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Date</mat-label>
+        <input matInput type="date" name="date" [(ngModel)]="formData.date" #dateInput="ngModel" required>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Proficiency</mat-label>
-      <mat-select>
-        <mat-option value="beginner">Beginner</mat-option>
-        <mat-option value="intermediate">Intermediate</mat-option>
-        <mat-option value="advanced">Advanced</mat-option>
-      </mat-select>
-    </mat-form-field>
-    
-    <mat-form-field appearance="outline">
-      <mat-label>Date</mat-label>
-      <input matInput type="date">
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Time</mat-label>
+        <input matInput name="time" type="time" [(ngModel)]="formData.time" #timeInput="ngModel" required>
+        <mat-error *ngIf="timeInput.invalid && timeInput.touched">
+          Time is required and must be in the future
+        </mat-error>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Time</mat-label>
-      <input matInput type="time">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Type</mat-label>
-      <mat-select>
-        <mat-option value="individual">Individual</mat-option>
-        <mat-option value="group">Group</mat-option>
-      </mat-select>
-    </mat-form-field>
-    
-    <button mat-raised-button color="primary" matButton="filled" (click)="findMatch()">
-      Find Match
-    </button>
+      <mat-form-field appearance="outline">
+        <mat-label>Type</mat-label>
+        <mat-select name="type" [(ngModel)]="formData.type" required>
+          <mat-option value="individual">Individual</mat-option>
+          <mat-option value="group">Group</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <button mat-raised-button color="primary" matButton="filled" type="submit">
+        Find Match
+      </button>
+    </form>
   </div>
 </div>
 

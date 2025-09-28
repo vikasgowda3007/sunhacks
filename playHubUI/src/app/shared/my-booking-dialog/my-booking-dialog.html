@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Enter Email</h2>
+
+<mat-dialog-content>
+  <form #emailForm="ngForm">
+    <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Email</mat-label>
+        <input
+            matInput
+            name="email"
+            [(ngModel)]="email"
+            placeholder="example@mail.com"
+            required
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            #emailInput="ngModel"
+        />
+        <mat-error *ngIf="emailInput.invalid && emailInput.touched">
+            <span *ngIf="emailInput.errors?.['required']">Email is required</span>
+            <span *ngIf="emailInput.errors?.['pattern']">Enter a valid email (with proper domain)</span>
+        </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button color="primary" [disabled]="emailForm.invalid" (click)="submit()">
+    Submit
+  </button>
+</mat-dialog-actions>

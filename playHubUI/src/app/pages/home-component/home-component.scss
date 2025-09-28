@@ -59,9 +59,22 @@
 
 .home-content {
   max-width: 600px;
+  width: -webkit-fill-available;
   margin: 0 auto;
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: 16px;     /* adds spacing between inputs and the button */
+}
+
+.loader {
+  display: none;       /* hidden by default */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+.loader.active {
+  display: flex;       /* show only when 'active' class is added */
 }
