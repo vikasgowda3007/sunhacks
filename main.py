@@ -1,3 +1,4 @@
+import asyncio
 import os
 from flask import Flask, request
 from flask_cors import CORS
@@ -33,7 +34,7 @@ user_request = {
 }
 
 @app.route('/api/book', methods=['POST'])
-def book_court():
+async def book_court():
     global user_request
     """Read data from UI and print it"""
     try:
@@ -60,8 +61,9 @@ def book_court():
         print(f"Error processing request: {str(e)}")
         return f"Error: {str(e)}", 500
     print(user_request)
+    return "Something here"
 
-def main():
+async def main():
     global user_request
     """
     Main function to run the sports court booking application.
@@ -139,4 +141,4 @@ def main():
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=3000)
-    main()
+    asyncio.run(main())
