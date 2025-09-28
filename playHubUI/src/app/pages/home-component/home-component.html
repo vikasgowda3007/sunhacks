@@ -32,6 +32,11 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Enter your email" name="email" [(ngModel)]="formData.email" type="email" required email>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
         <mat-label>Sport</mat-label>
         <mat-select name="sport" [(ngModel)]="formData.sport" required>
           <mat-option value="badminton">Badminton</mat-option>

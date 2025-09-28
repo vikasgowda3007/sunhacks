@@ -24,6 +24,7 @@ export class HomeComponent {
   constructor(private http: HttpClient) { }
   formData = {
     name: '',
+    email: '',
     sport: '',
     proficiency: '',
     date: '',
@@ -76,24 +77,22 @@ export class HomeComponent {
 
     console.log('Form Data:', form.value);
 
-    setTimeout(() => {
-      this.http.post('http://localhost:3000/api/book', this.formData).subscribe({
-        next: (res) => {
-          console.log('Success:', res);
-          this.dialog.open(ResponseDialogComponent, {
-            data: { message: 'Match found successfully!' }
-          });
-          // You can add additional response checks here if needed
-          this.loaderRef.nativeElement.classList.remove('active');
-        },
-        error: (err) => {
-          this.dialog.open(ResponseDialogComponent, {
-            data: { message: 'Failed to find match.' }
-          });
-          console.error('Error:', err);
-          this.loaderRef.nativeElement.classList.remove('active');
-        }
-      });
-    }, 10000);
+    this.http.post('http://localhost:3000/api/book', this.formData).subscribe({
+      next: (res) => {
+        console.log('Success:', res);
+        this.dialog.open(ResponseDialogComponent, {
+          data: { message: 'Match found successfully!' }
+        });
+        // You can add additional response checks here if needed
+        this.loaderRef.nativeElement.classList.remove('active');
+      },
+      error: (err) => {
+        this.dialog.open(ResponseDialogComponent, {
+          data: { message: 'Failed to find match.' }
+        });
+        console.error('Error:', err);
+        this.loaderRef.nativeElement.classList.remove('active');
+      }
+    });
   }
 }
