@@ -51,7 +51,9 @@ class BookingAgent:
                 # For simplicity, we book with the first available match
                 match = available_matches[0]
                 #booking_id = self.db.create_booking(match['court_id'], user_id, request['date'], request['time'])
-                booking_id = match['id']
+                booking_id = match.get('id')
+                if booking_id is None:
+                    print("No 'id' key found in match:", match)
                 self.db.add_player_to_group(booking_id, user_id)
                 state["booking_details"] = {"booking_id": booking_id, "status": "confirmed", "match_with": match['user_id']}
                 state["final_response"] = f"Booking confirmed! You are matched with another player for {request['sport.key()']} on {request['date']} at {request['time']}."

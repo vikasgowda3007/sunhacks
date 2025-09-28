@@ -8,19 +8,11 @@ from agents import UserInteractionAgent, BookingAgent
 from db_manager import Database
 from config import get_config
 from state import AgentState
+from db_manager import fetch_booking
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
-# global variable of user_request
-# user_request = {
-#     #"action": "book_court",
-#     "user_details": {"name": "Jane Doe", "email": "jane.doe@example.com"},
-#     "sport": {"football" : "Beginner" },
-#     "date": "2025-10-15",
-#     "time": "10:00",
-#     "is_Individual": True # Individual looking for a match
-# }
 user_request = {
     "action": "book_court",
     "user_details": {
@@ -33,8 +25,14 @@ user_request = {
     "is_Individual": None
 }
 
+@app.route('/api/my-booking', methods=['POST'])
+def my_booking():
+    reponseData = request.get_json()
+    data = fetch_booking(reponseData['email'])
+    print(data)
+
 @app.route('/api/book', methods=['POST'])
-async def book_court():
+def book_court():
     global user_request
     """Read data from UI and print it"""
     try:
@@ -61,10 +59,6 @@ async def book_court():
         print(f"Error processing request: {str(e)}")
         return f"Error: {str(e)}", 500
     print(user_request)
-    return "Something here"
-
-async def main():
-    global user_request
     """
     Main function to run the sports court booking application.
     This function sets up the database, agents, and the LangGraph workflow,
@@ -138,7 +132,7 @@ async def main():
     
 
     db.disconnect()
+    return final_state.get('final_response', 'No response generated.')
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=3000)
-    asyncio.run(main())

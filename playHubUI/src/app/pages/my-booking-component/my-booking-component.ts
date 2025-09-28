@@ -41,7 +41,7 @@ export class MyBookingComponent {
       dialogRef.afterClosed().subscribe((email: string | null) => {
         if (email) {
           this.loaderRef.nativeElement.classList.add('active');
-          this.http.post('http://localhost:3000', email).subscribe({
+          this.http.post('http://localhost:3000/api/my-booking', {email: email}).subscribe({
             next: (res) => {
               console.log('Success:', res);
               this.loaderRef.nativeElement.classList.remove('active');

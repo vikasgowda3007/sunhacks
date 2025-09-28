@@ -79,18 +79,17 @@ export class HomeComponent {
 
     this.http.post('http://localhost:3000/api/book', this.formData).subscribe({
       next: (res) => {
-        console.log('Success:', res);
         this.dialog.open(ResponseDialogComponent, {
-          data: { message: 'Match found successfully!' }
+          data: { message: res }
         });
         // You can add additional response checks here if needed
         this.loaderRef.nativeElement.classList.remove('active');
       },
       error: (err) => {
+        console.log(err.error.text)
         this.dialog.open(ResponseDialogComponent, {
-          data: { message: 'Failed to find match.' }
+          data: { message: err.error.text }
         });
-        console.error('Error:', err);
         this.loaderRef.nativeElement.classList.remove('active');
       }
     });
