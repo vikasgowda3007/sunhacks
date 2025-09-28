@@ -4,16 +4,13 @@ from agents import UserInteractionAgent, BookingAgent, ProficiencyAssessmentAgen
 from db_manager import Database
 from config import get_config
 
-
-
-
 class AgentState:
     def __init__(self):
         self.state = {
             "user_request": None,
             "user_id": None,
             "booking_details": None,
-            "proficiency_assessment": None,
+            #"proficiency_assessment": None,
             "available_slots": [],
             "final_response": None,
             "error": None,
@@ -39,20 +36,20 @@ def main():
     # Initialize agents
     user_interaction_agent = UserInteractionAgent()
     booking_agent = BookingAgent(db)
-    proficiency_agent = ProficiencyAssessmentAgent(config['GEMINI_API_KEY'])
+   # proficiency_agent = ProficiencyAssessmentAgent(config['gemini_api_key'])
 
     # Define the workflow
     workflow = StateGraph(AgentState)
 
     workflow.add_node("user_interaction", user_interaction_agent.process_request)
-    workflow.add_node("proficiency_assessment", proficiency_agent.assess_proficiency)
+    #workflow.add_node("proficiency_assessment", proficiency_agent.assess_proficiency)
     workflow.add_node("booking", booking_agent.handle_booking)
     workflow.add_node("handle_error", lambda state: {"final_response": state['error']})
 
     # Set up the graph edges
     workflow.set_entry_point("user_interaction")
-    workflow.add_edge("user_interaction", "proficiency_assessment")
-    workflow.add_edge("proficiency_assessment", "booking")
+    workflow.add_edge("user_interaction", "booking")
+    #workflow.add_edge("proficiency_assessment", "booking")
 
     def decide_next_step(state):
         if state["error"]:
@@ -76,8 +73,8 @@ def main():
     # Example user request
     user_request = {
         "action": "book_court",
-        "user_details": {"name": "Jane Doe", "email": "jane.doe@example.com", "description": "I have been playing tennis casually for about 2 years on weekends."},
-        "sport": "tennis",
+        "user_details": {"name": "Jane Doe", "email": "jane.doe@example.com"},
+        "sport": {"tennis" : "Beginner" },
         "date": "2025-10-15",
         "time": "10:00",
         "players": 1 # Individual looking for a match

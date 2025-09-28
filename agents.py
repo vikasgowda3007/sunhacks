@@ -18,6 +18,7 @@ class UserInteractionAgent:
         # In a real application, this would involve a database lookup.
         return "user_123" 
 
+'''
 class ProficiencyAssessmentAgent:
     """Agent to assess user proficiency using Gemini."""
     def __init__(self, api_key):
@@ -44,6 +45,9 @@ class ProficiencyAssessmentAgent:
             print(f"Error during proficiency assessment: {e}")
             state["error"] = "Failed to assess proficiency."
         return state
+    
+    
+    '''
 
 class BookingAgent:
     """Agent to handle court booking and player matching."""
