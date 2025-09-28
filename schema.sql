@@ -15,12 +15,14 @@ CREATE TABLE bookings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     court_id INT,
     user_id VARCHAR(255),
+    email_id VARCHAR(255),
     start_time DATETIME,
     status VARCHAR(50) DEFAULT 'confirmed',
     sport_type VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (court_id) REFERENCES courts(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (email_id) REFERENCES users(email)
 )AUTO_INCREMENT = 1000;
 
 CREATE TABLE player_groups (

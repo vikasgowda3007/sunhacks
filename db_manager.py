@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import errorcode
+import json
 
 
 print("--- Loading db_manager.py ---") # Debug print to confirm file is being read
@@ -125,3 +126,19 @@ class Database:
         query = "INSERT INTO player_groups (booking_id, user_id) VALUES (%s, %s)"
         self.cursor.execute(query, (booking_id, user_id))
         self.connection.commit()
+
+    
+    def fetch_booking(self, email_id):
+        # Gets booking table from email address
+        query = "SELECT c.location, DATE_FORMAT(b.start_time, '%m %d %Y %H:%i:%s') as formatted_date, b.status FROM bookings b INNER JOIN users u ON b.user_id = u.id INNER JOIN courts c ON b.court_id = c.id WHERE u.email = %s ORDER BY b.start_time DESC"
+        self.cursor.execute(query, email_id)
+        self.connection.commit()
+        results = self.cursor.fetchall()
+        results = list(results)
+        
+        bookings = [
+        {"location": location, "date and time": date, "status": status}
+        for location, date, status in results
+        ]
+    
+        return json.dumps(bookings)
