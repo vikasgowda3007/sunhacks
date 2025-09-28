@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@coreui/angular": "^5.5.16",
+    "@coreui/coreui": "^5.4.3",
+    "@coreui/icons-angular": "^5.5.16",
+    "bootstrap-icons": "^1.13.1"
+  }
+}

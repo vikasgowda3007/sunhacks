@@ -23,6 +23,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^20.3.0",
     "@angular/cdk": "^20.2.5",
     "@angular/common": "^20.3.0",
     "@angular/compiler": "^20.3.0",
@@ -33,6 +34,10 @@
     "@angular/platform-server": "^20.3.0",
     "@angular/router": "^20.3.0",
     "@angular/ssr": "^20.3.3",
+    "@coreui/angular": "~5.5.16",
+    "@coreui/coreui": "^5.4.3",
+    "@coreui/icons-angular": "~5.5.16",
+    "@popperjs/core": "~2.11.8",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

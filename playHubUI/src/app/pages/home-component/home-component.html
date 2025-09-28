@@ -1,1 +1,20 @@
-<p>home-component works!</p>
+<div class="carousel">
+  <div class="slides" [style.transform]="'translateX(-' + current * 100 + '%)'" >
+    <img src="assets/images/image.png" alt="Slide 1" />
+    <img src="assets/images/test.jpg" alt="Slide 2" />
+    <img src="assets/images/image.png" alt="Slide 3" />
+  </div>
+
+  <!-- Controls -->
+  <button class="prev" (click)="prevSlide()">❮</button>
+  <button class="next" (click)="nextSlide()">❯</button>
+
+  <!-- Indicators -->
+  <div class="indicators">
+    <span *ngFor="let slide of slidesArray; let idx = index"
+          [class.active]="idx === current"
+          (click)="goToSlide(idx)">
+    </span>
+  </div>
+</div>
+
