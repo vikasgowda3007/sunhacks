@@ -2,17 +2,17 @@ CREATE TABLE users (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255),
     email VARCHAR(255) UNIQUE,
-    proficiency_level INT
+    proficiency ENUM('Beginner', 'Intermediate', 'Advanced')
 );
 
 CREATE TABLE courts (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     sport_type VARCHAR(50),
     location VARCHAR(255)
-);
+)AUTO_INCREMENT = 1;
 
 CREATE TABLE bookings (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     court_id INT,
     user_id VARCHAR(255),
     start_time DATETIME,
@@ -21,12 +21,12 @@ CREATE TABLE bookings (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (court_id) REFERENCES courts(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
-);
+)AUTO_INCREMENT = 1000;
 
 CREATE TABLE player_groups (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     booking_id INT,
     user_id VARCHAR(255),
     FOREIGN KEY (booking_id) REFERENCES bookings(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
-);
+)AUTO_INCREMENT = 1;

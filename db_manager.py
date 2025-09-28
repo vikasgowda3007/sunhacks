@@ -59,10 +59,10 @@ class Database:
         """Seeds the database with initial court data."""
         print("Seeding initial data...")
         courts = [
-            (1, 'tennis', 'North Complex Court 1'),
-            (2, 'tennis', 'North Complex Court 2'),
-            (3, 'basketball', 'East Gym Court A'),
-            (4, 'basketball', 'East Gym Court B'),
+            (1, 'football', 'North Complex Court 1'),
+            (2, 'football', 'North Complex Court 2'),
+            (3, 'badminton', 'East Gym Court A'),
+            (4, 'badminton', 'East Gym Court B'),
         ]
         query = "INSERT IGNORE INTO courts (id, sport_type, location) VALUES (%s, %s, %s)"
         for court in courts:
@@ -74,9 +74,9 @@ class Database:
     def save_user_proficiency(self, user_id, proficiency):
         """Saves or updates a user's proficiency."""
         query = """
-        INSERT INTO users (id, name, email, proficiency_level) 
+        INSERT INTO users (id, name, email, proficiency) 
         VALUES (%s, 'Default Name', 'default@email.com', %s) 
-        ON DUPLICATE KEY UPDATE proficiency_level = %s
+        ON DUPLICATE KEY UPDATE proficiency = %s
         """
         self.cursor.execute(query, (user_id, proficiency, proficiency))
         self.connection.commit()
@@ -96,19 +96,16 @@ class Database:
     def find_match(self, sport, date, time, proficiency):
         """Finds pending matches for individual players."""
         query = """
-        SELECT b.id as booking_id, b.court_id, pg.user_id, u.proficiency_level
-        FROM bookings b
+        SELECT b.id as booking_id, b.court_id, pg.user_id, u.proficiency
+        FROM bookings b 
         JOIN player_groups pg ON b.id = pg.booking_id
         JOIN users u ON pg.user_id = u.id
-        WHERE b.sport_type = %s AND b.start_time = %s 
+        WHERE b.sport_type = %s AND b.start_time = %s AND u.proficiency = %s
         AND b.status = 'pending_match'
-        AND u.proficiency_level BETWEEN %s AND %s
         """
         start_time = f"{date} {time}"
         # Match with players of similar proficiency
-        proficiency_min = proficiency - 1
-        proficiency_max = proficiency + 1
-        self.cursor.execute(query, (sport, start_time, proficiency_min, proficiency_max))
+        self.cursor.execute(query, (sport, start_time, proficiency))
         return self.cursor.fetchall()
 
 
