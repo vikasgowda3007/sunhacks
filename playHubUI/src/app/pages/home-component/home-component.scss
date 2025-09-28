@@ -56,3 +56,12 @@
 .indicators .active {
   background-color: #333;
 }
+
+.home-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;     /* adds spacing between inputs and the button */
+}

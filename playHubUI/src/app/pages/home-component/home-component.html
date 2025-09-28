@@ -1,20 +1,70 @@
-<div class="carousel">
-  <div class="slides" [style.transform]="'translateX(-' + current * 100 + '%)'" >
-    <img src="assets/images/image_1.png" alt="Slide 1" />
-    <img src="assets/images/image_2.png" alt="Slide 2" />
-    <img src="assets/images/image_3.png" alt="Slide 3" />
+<div class="home">
+  <div class="carousel">
+    <div class="slides" [style.transform]="'translateX(-' + current * 100 + '%)'" >
+      <img src="assets/images/image_1.png" alt="Slide 1" />
+      <img src="assets/images/image_2.png" alt="Slide 2" />
+      <img src="assets/images/image_3.png" alt="Slide 3" />
+    </div>
+
+    <!-- Controls -->
+    <button class="prev" (click)="prevSlide()">❮</button>
+    <button class="next" (click)="nextSlide()">❯</button>
+
+    <!-- Indicators -->
+    <div class="indicators">
+      <span *ngFor="let slide of slidesArray; let idx = index"
+            [class.active]="idx === current"
+            (click)="goToSlide(idx)">
+      </span>
+    </div>
   </div>
+  <div class="home-content">
+    <h1>Welcome to PlayHub</h1>
+    <p>Your gateway to exciting sports matches!</p>
 
-  <!-- Controls -->
-  <button class="prev" (click)="prevSlide()">❮</button>
-  <button class="next" (click)="nextSlide()">❯</button>
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Enter your name">
+    </mat-form-field>
 
-  <!-- Indicators -->
-  <div class="indicators">
-    <span *ngFor="let slide of slidesArray; let idx = index"
-          [class.active]="idx === current"
-          (click)="goToSlide(idx)">
-    </span>
+    <mat-form-field appearance="outline">
+      <mat-label>Sport</mat-label>
+      <mat-select>
+        <mat-option value="badminton">Badminton</mat-option>
+        <mat-option value="football">Football</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Proficiency</mat-label>
+      <mat-select>
+        <mat-option value="beginner">Beginner</mat-option>
+        <mat-option value="intermediate">Intermediate</mat-option>
+        <mat-option value="advanced">Advanced</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Date</mat-label>
+      <input matInput type="date">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Time</mat-label>
+      <input matInput type="time">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select>
+        <mat-option value="individual">Individual</mat-option>
+        <mat-option value="group">Group</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <button mat-raised-button color="primary" matButton="filled" (click)="findMatch()">
+      Find Match
+    </button>
   </div>
 </div>
 
