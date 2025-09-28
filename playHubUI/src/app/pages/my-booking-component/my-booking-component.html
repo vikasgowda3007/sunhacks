@@ -1,1 +1,23 @@
-<p>my-booking-component works!</p>
+<div class="container">
+  <h1>My Bookings</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Serial No.</th>
+        <th>Sport Type</th>
+        <th>Court Date & Time</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of bookings">
+        <td>{{ booking.serial }}</td>
+        <td>{{ booking.sportType }}</td>
+        <td>{{ booking.courtDateTime }}</td>
+        <td [ngClass]="getStatusClass(booking.status)">{{ booking.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

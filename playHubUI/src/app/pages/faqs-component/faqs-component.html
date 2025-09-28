@@ -1,1 +1,14 @@
-<p>faqs-component works!</p>
+<div class="faq-container">
+  <h1>Frequently Asked Questions</h1>
+
+  <div class="faq-card" *ngFor="let faq of faqs">
+    <div class="faq-question" (click)="toggleFAQ(faq)">
+      <span>{{ faq.question }}</span>
+      <span class="icon">{{ faq.open ? '−' : '+' }}</span>
+    </div>
+    <div class="faq-answer" *ngIf="faq.open">
+      <p>{{ faq.answer }}</p>
+    </div>
+  </div>
+</div>
+
