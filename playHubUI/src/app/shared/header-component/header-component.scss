@@ -1,0 +1,19 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+.spacer {
+  flex: 1 1 auto; /* take up all remaining space */
+}
+
+.header {
+  position: sticky;   /* makes toolbar fixed when scrolling */
+  top: 0;             /* stick to the top */
+  z-index: 1000;      /* stay above other content */
+}
+
+.title {
+  position: absolute;     /* remove from normal flow */
+  left: 50%;             /* move to center horizontally */
+  transform: translateX(-50%); /* adjust exact center */
+  font-weight: bold;
+  font-size: 40px;
+}
