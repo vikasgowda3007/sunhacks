@@ -12,7 +12,7 @@ CREATE TABLE courts (
 );
 
 CREATE TABLE bookings (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY,
     court_id INT,
     user_id VARCHAR(255),
     start_time DATETIME,

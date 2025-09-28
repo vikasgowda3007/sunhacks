@@ -72,12 +72,12 @@ def main():
 
     # Example user request
     user_request = {
-        "action": "book_court",
+        #"action": "book_court",
         "user_details": {"name": "Jane Doe", "email": "jane.doe@example.com"},
         "sport": {"tennis" : "Beginner" },
         "date": "2025-10-15",
         "time": "10:00",
-        "players": 1 # Individual looking for a match
+        "is_Individual": True # Individual looking for a match
     }
     
     initial_state = AgentState()
